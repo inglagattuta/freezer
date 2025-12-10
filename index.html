@@ -3,97 +3,127 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inventario Freezer</title>
-
-  <!-- React CDN -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-
-  <!-- Babel -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>Freezer Inventory</title>
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- React -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
-  <style> body { background: #f0f9ff; } </style>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js"></script>
+
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body class="min-h-screen">
+<body class="bg-gray-100 min-h-screen p-4">
   <div id="root"></div>
 
-  <!-- APP COMPLETA -->
-  <script type="text/babel" data-presets="react">
+  <script type="text/babel">
+    // ============================
+    // 🔥 Firebase config
+    // ============================
+    const firebaseConfig = {
+      apiKey: "API_KEY",
+      authDomain: "PROJECT.firebaseapp.com",
+      projectId: "PROJECT",
+      storageBucket: "PROJECT.appspot.com",
+      messagingSenderId: "ID",
+      appId: "APP_ID",
+    };
 
-    const { useState, useEffect } = React;
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-    function FreezerInventory() {
-      const [items, setItems] = useState([]);
-      const [name, setName] = useState("");
-      const [quantity, setQuantity] = useState(1);
-      const [category, setCategory] = useState("Altro");
+    // ============================
+    // React App
+    // ============================
+    function App() {
+      const [items, setItems] = React.useState([]);
+      const [nome, setNome] = React.useState("");
+      const [quantita, setQuantita] = React.useState(1);
+      const [categoria, setCategoria] = React.useState("generale");
 
-      const addItem = () => {
-        if (!name.trim()) return;
-        setItems([...items, { id: Date.now(), name, quantity, category }]);
-        setName("");
-        setQuantity(1);
+      // Carica dati da Firebase
+      React.useEffect(() => {
+        db.collection("freezer")
+          .orderBy("nome")
+          .onSnapshot(snapshot => {
+            const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setItems(data);
+          });
+      }, []);
+
+      // Aggiungi alimento
+      const aggiungi = async () => {
+        if (!nome.trim()) return;
+        await db.collection("freezer").add({ nome, quantita, categoria, ts: Date.now() });
+        setNome("");
+        setQuantita(1);
       };
 
-      const removeItem = (id) => {
-        setItems(items.filter((i) => i.id !== id));
+      // Rimuovi
+      const elimina = async (id) => {
+        await db.collection("freezer").doc(id).delete();
       };
 
       return (
-        <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-xl rounded-2xl">
-          <h1 className="text-3xl font-bold text-blue-600 text-center">Inventario Freezer</h1>
+        <div className="max-w-xl mx-auto bg-white p-4 rounded-xl shadow">
+          <h1 className="text-2xl font-bold mb-4 text-center">🍗 Freezer Inventory</h1>
 
-          <div className="mt-6 grid gap-4">
+          {/* Form */}
+          <div className="flex gap-2 mb-4">
             <input
-              className="p-3 border rounded-xl"
-              placeholder="Nome alimento"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              className="border p-2 flex-1 rounded"
+              placeholder="Alimento"
+              value={nome}
+              onChange={e => setNome(e.target.value)}
             />
 
             <input
               type="number"
-              min="1"
-              className="p-3 border rounded-xl"
-              value={quantity}
-              onChange={(e) => setQuantity(Number(e.target.value))}
+              className="border w-20 p-2 rounded"
+              value={quantita}
+              onChange={e => setQuantita(parseInt(e.target.value))}
             />
 
             <select
-              className="p-3 border rounded-xl"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              className="border p-2 rounded"
+              value={categoria}
+              onChange={e => setCategoria(e.target.value)}
             >
-              <option>Carne</option>
-              <option>Pesce</option>
-              <option>Verdure</option>
-              <option>Pane</option>
-              <option>Pronti</option>
-              <option>Altro</option>
+              <option value="generale">Generale</option>
+              <option value="carne">Carne</option>
+              <option value="pesce">Pesce</option>
+              <option value="verdure">Verdure</option>
+              <option value="dolci">Dolci</option>
             </select>
 
             <button
-              onClick={addItem}
-              className="bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700"
+              onClick={aggiungi}
+              className="bg-blue-600 text-white px-4 rounded"
             >
-              Aggiungi
+              +
             </button>
           </div>
 
-          <ul className="mt-8 space-y-3">
-            {items.map((item) => (
-              <li key={item.id} className="flex justify-between p-3 border rounded-xl bg-gray-50">
+          {/* Lista */}
+          <ul className="divide-y">
+            {items.map(item => (
+              <li key={item.id} className="py-2 flex justify-between items-center">
                 <div>
-                  <strong>{item.name}</strong> — {item.quantity} × {item.category}
+                  <span className="font-semibold">{item.nome}</span> —
+                  <span className="ml-1 text-gray-600">{item.quantita}</span>
+                  <span className="ml-2 text-sm bg-gray-200 px-2 py-1 rounded">{item.categoria}</span>
                 </div>
-                <button onClick={() => removeItem(item.id)}>
-                  <i data-lucide="trash-2" class="w-5 h-5 text-red-600"></i>
+                <button
+                  onClick={() => elimina(item.id)}
+                  className="text-red-600 font-bold"
+                >
+                  ✕
                 </button>
               </li>
             ))}
@@ -102,13 +132,7 @@
       );
     }
 
-    function App() {
-      return <FreezerInventory />;
-    }
-
-    ReactDOM.render(<App />, document.getElementById("root"));
-    lucide.createIcons();
-
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
   </script>
 </body>
 </html>
