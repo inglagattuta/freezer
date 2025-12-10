@@ -2,39 +2,29 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Inventario Freezer</title>
 
-  <!-- TailwindCSS -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- React 18 via CDN -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-
   <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide-react/dist/umd/lucide-react.min.js"></script>
 
-  <!-- Firebase compat (per funzionare senza bundler) -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <!-- React + ReactDOM -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Babel per far girare React con import in browser -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
 </head>
+<body class="bg-gray-100">
 
-<body class="bg-gray-100 min-h-screen">
-
-  <!-- Root React -->
   <div id="root"></div>
 
-  <!-- La tua app React -->
-  <script type="module" src="./app.js"></script>
-
-  <!-- Attiva lucide icons -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      lucide.createIcons();
-    });
-  </script>
+  <!-- Import del tuo file React -->
+  <script type="text/babel" src="app.js"></script>
 
 </body>
 </html>
