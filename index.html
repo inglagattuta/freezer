@@ -21,13 +21,15 @@
     } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
     const firebaseConfig = {
-      apiKey: "API_KEY",
-      authDomain: "lista-spesa-famiglia-95127.firebaseapp.com",
-      projectId: "lista-spesa-famiglia-95127",
-      storageBucket: "lista-spesa-famiglia-95127.appspot.com",
-      messagingSenderId: "666271057508",
-      appId: "1:666271057508:web:518b05649b2ab90232cfb6"
-    };
+  apiKey: "AIzaSyBmWi-5wQ97PA4TanAC5mHFAqmsNR9aUpE",
+  authDomain: "lista-spesa-famiglia-95127.firebaseapp.com",
+  databaseURL: "https://lista-spesa-famiglia-95127-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "lista-spesa-famiglia-95127",
+  storageBucket: "lista-spesa-famiglia-95127.firebasestorage.app",
+  messagingSenderId: "131762886904",
+  appId: "1:131762886904:web:04b14e5c7567c78de9c30d"
+};
+
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
