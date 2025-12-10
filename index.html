@@ -15,38 +15,89 @@
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Lucide Icons (per browser, NON React) -->
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <style>
-    body { background: #f0f9ff; }
-  </style>
+  <style> body { background: #f0f9ff; } </style>
 </head>
 <body class="min-h-screen">
-
-  <!-- Root -->
   <div id="root"></div>
 
-  <!-- Il tuo componente React -->
+  <!-- APP COMPLETA -->
   <script type="text/babel" data-presets="react">
 
     const { useState, useEffect } = React;
 
-    // SOSTITUZIONE: invece di usare icone React (lucide-react)
-    // usiamo lucide.createIcons() dopo render
-
     function FreezerInventory() {
+      const [items, setItems] = useState([]);
+      const [name, setName] = useState("");
+      const [quantity, setQuantity] = useState(1);
+      const [category, setCategory] = useState("Altro");
+
+      const addItem = () => {
+        if (!name.trim()) return;
+        setItems([...items, { id: Date.now(), name, quantity, category }]);
+        setName("");
+        setQuantity(1);
+      };
+
+      const removeItem = (id) => {
+        setItems(items.filter((i) => i.id !== id));
+      };
 
       return (
-        <div className="p-6 text-center">
-          <h1 className="text-3xl font-bold text-blue-600">Inventario Freezer</h1>
-          <p className="mt-4 text-gray-700">
-            L’app è caricata correttamente. Ora puoi integrare il tuo codice React.
-          </p>
+        <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-xl rounded-2xl">
+          <h1 className="text-3xl font-bold text-blue-600 text-center">Inventario Freezer</h1>
 
-          <div className="mt-6 text-gray-700">
-            <i data-lucide="snowflake" class="w-12 h-12"></i>
+          <div className="mt-6 grid gap-4">
+            <input
+              className="p-3 border rounded-xl"
+              placeholder="Nome alimento"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+
+            <input
+              type="number"
+              min="1"
+              className="p-3 border rounded-xl"
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+            />
+
+            <select
+              className="p-3 border rounded-xl"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option>Carne</option>
+              <option>Pesce</option>
+              <option>Verdure</option>
+              <option>Pane</option>
+              <option>Pronti</option>
+              <option>Altro</option>
+            </select>
+
+            <button
+              onClick={addItem}
+              className="bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700"
+            >
+              Aggiungi
+            </button>
           </div>
+
+          <ul className="mt-8 space-y-3">
+            {items.map((item) => (
+              <li key={item.id} className="flex justify-between p-3 border rounded-xl bg-gray-50">
+                <div>
+                  <strong>{item.name}</strong> — {item.quantity} × {item.category}
+                </div>
+                <button onClick={() => removeItem(item.id)}>
+                  <i data-lucide="trash-2" class="w-5 h-5 text-red-600"></i>
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       );
     }
@@ -56,11 +107,8 @@
     }
 
     ReactDOM.render(<App />, document.getElementById("root"));
-
-    // Attiva icone dopo render
     lucide.createIcons();
 
   </script>
-
 </body>
 </html>
