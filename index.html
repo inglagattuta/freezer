@@ -30,7 +30,15 @@
       --glass-blur: 24px;
       --accent: #7dd3fc;
       --accent-2: #b794f4;
+      /* FIX: colore leggibile per le option nei menu a tendina */
+select option {
+  color: #000 !important;       /* testo nero */
+  background: #ffffff !important; /* sfondo bianco */
+}
+
     }
+
+    
 
     body {
       background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
