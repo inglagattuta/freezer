@@ -5,26 +5,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Inventario Freezer</title>
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide-react/dist/umd/lucide-react.min.js"></script>
-
-  <!-- React + ReactDOM -->
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-
-  <!-- Babel per far girare React con import in browser -->
+  <!-- Babel -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-</head>
-<body class="bg-gray-100">
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- Lucide Icons (per browser, NON React) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body { background: #f0f9ff; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Root -->
   <div id="root"></div>
 
-  <!-- Import del tuo file React -->
-  <script type="text/babel" src="app.js"></script>
+  <!-- Il tuo componente React -->
+  <script type="text/babel" data-presets="react">
+
+    const { useState, useEffect } = React;
+
+    // SOSTITUZIONE: invece di usare icone React (lucide-react)
+    // usiamo lucide.createIcons() dopo render
+
+    function FreezerInventory() {
+
+      return (
+        <div className="p-6 text-center">
+          <h1 className="text-3xl font-bold text-blue-600">Inventario Freezer</h1>
+          <p className="mt-4 text-gray-700">
+            L’app è caricata correttamente. Ora puoi integrare il tuo codice React.
+          </p>
+
+          <div className="mt-6 text-gray-700">
+            <i data-lucide="snowflake" class="w-12 h-12"></i>
+          </div>
+        </div>
+      );
+    }
+
+    function App() {
+      return <FreezerInventory />;
+    }
+
+    ReactDOM.render(<App />, document.getElementById("root"));
+
+    // Attiva icone dopo render
+    lucide.createIcons();
+
+  </script>
 
 </body>
 </html>
