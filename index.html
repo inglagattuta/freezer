@@ -225,7 +225,7 @@
               value={form.nome}
               onChange={e=> setForm({...form, nome: e.target.value})}
               placeholder="Nome prodotto (es. Pollo a pezzi)"
-              className="w-full px-4 py-3 rounded-xl bg-white/3 border border-white/6 text-white placeholder-slate-300"
+              className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400"
               required
             />
 
@@ -233,10 +233,12 @@
               <input type="number" min="1"
                 value={form.quantita}
                 onChange={e=> setForm({...form, quantita: e.target.value})}
-                className="w-28 px-3 py-2 rounded-xl bg-white/3 border border-white/6 text-white"
+                className="w-28 px-3 py-2 rounded-xl bg-white/10 border border-white/20 text-white"
+
               />
               <select value={form.unita} onChange={e=> setForm({...form, unita: e.target.value})}
-                className="px-3 py-2 rounded-xl bg-white/3 border border-white/6 text-white">
+                className="px-3 py-2 rounded-xl bg-white/10 border border-white/20 text-white"
+
                 <option value="pz">pz</option>
                 <option value="kg">kg</option>
                 <option value="g">g</option>
@@ -258,11 +260,12 @@
 
             <div className="flex gap-2">
               <input type="date" value={form.expiryDate} onChange={e=> setForm({...form, expiryDate: e.target.value})}
-                className="px-3 py-2 rounded-xl bg-white/3 border border-white/6 text-white" />
+                className="px-3 py-2 rounded-xl bg-white/10 border border-white/20 text-white"
+ />
               <button type="submit" className="ml-auto inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#60a5fa] to-[#8b5cf6] text-white font-semibold shadow hover:brightness-105">
                 <IconPlus className="w-4 h-4"/> {editingId ? 'Salva' : 'Aggiungi'}
               </button>
-              <button type="button" onClick={resetForm} className="px-3 py-2 rounded-xl border border-white/6 text-slate-200 hover:bg-white/2">
+              <button type="button" onClick={resetForm} className="px-3 py-2 rounded-xl border border-white/20 text-slate-300 hover:bg-white/10">
                 Annulla
               </button>
             </div>
@@ -282,7 +285,7 @@
                   const cat = CAT[item.categoria] || CAT['altro'];
 
                   return (
-                    <div key={item.id} className="flex items-center justify-between p-3 rounded-xl border border-white/6 bg-white/2">
+                    <div key={item.id} className="flex items-center justify-between p-3 rounded-xl border border-white/20 bg-white/5">
                       <div className="flex items-center gap-3">
                         <div style={{background: cat.bg, color: cat.color}} className="pill" title={item.categoria}>
                           {item.categoria}
@@ -295,7 +298,7 @@
 
                       <div className="flex items-center gap-2">
                         {expiryLabel && <div className={`text-xs ${days<0 ? 'text-rose-400' : days<=7 ? 'text-amber-300' : 'text-slate-300'}`}>{expiryLabel}</div>}
-                        <button onClick={()=> startEdit(item)} className="px-3 py-1 rounded-lg border border-white/6 text-slate-200 hover:bg-white/3 flex items-center gap-2">
+                        <button onClick={()=> startEdit(item)} className="px-3 py-1 rounded-lg border border-white/20 text-slate-300 hover:bg-white/10 flex items-center gap-2">
                           <IconEdit/> Modifica
                         </button>
                         <button onClick={()=> removeItem(item.id)} className="px-3 py-1 rounded-lg border border-white/6 text-rose-300 hover:bg-rose-900/10 flex items-center gap-2">
