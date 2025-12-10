@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Snowflake, Plus, Trash2, Edit2, Check, X, Calendar, Package, LogIn, LogOut, User } from 'lucide-react';
 
-// Configurazione Firebase - SOSTITUISCI CON I TUOI DATI
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "TUA_API_KEY",
-  authDomain: "tuo-progetto.firebaseapp.com",
-  projectId: "tuo-progetto-id",
-  storageBucket: "tuo-progetto.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "tua-app-id"
+  apiKey: "AIzaSyBmWi-5wQ97PA4TanAC5mHFAqmsNR9aUpE",
+  authDomain: "lista-spesa-famiglia-95127.firebaseapp.com",
+  databaseURL: "https://lista-spesa-famiglia-95127-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "lista-spesa-famiglia-95127",
+  storageBucket: "lista-spesa-famiglia-95127.firebasestorage.app",
+  messagingSenderId: "131762886904",
+  appId: "1:131762886904:web:04b14e5c7567c78de9c30d"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 export default function FreezerInventory() {
   const [items, setItems] = useState([]);
