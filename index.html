@@ -236,15 +236,18 @@
                 className="w-28 px-3 py-2 rounded-xl bg-white/10 border border-white/20 text-white"
 
               />
-              <select value={form.unita} onChange={e=> setForm({...form, unita: e.target.value})}
-                className="px-3 py-2 rounded-xl bg-white/10 border border-white/20 text-white"
+             <select
+  value={form.unita}
+  onChange={e => setForm({ ...form, unita: e.target.value })}
+  className="px-3 py-2 rounded-xl bg-white/10 border border-white/20 text-white"
+>
+  <option value="pz">pz</option>
+  <option value="kg">kg</option>
+  <option value="g">g</option>
+  <option value="l">l</option>
+  <option value="confezioni">confezioni</option>
+</select>
 
-                <option value="pz">pz</option>
-                <option value="kg">kg</option>
-                <option value="g">g</option>
-                <option value="l">l</option>
-                <option value="confezioni">confezioni</option>
-              </select>
 
               <select value={form.categoria} onChange={e=> setForm({...form, categoria: e.target.value})}
                 className="ml-auto px-3 py-2 rounded-xl bg-white/3 border border-white/6 text-white">
