@@ -249,16 +249,20 @@
 </select>
 
 
-              <select value={form.categoria} onChange={e=> setForm({...form, categoria: e.target.value})}
-                className="ml-auto px-3 py-2 rounded-xl bg-white/3 border border-white/6 text-white">
-                <option value="carne">Carne</option>
-                <option value="pesce">Pesce</option>
-                <option value="verdure">Verdure</option>
-                <option value="frutta">Frutta</option>
-                <option value="pane">Pane</option>
-                <option value="pronti">Pronti</option>
-                <option value="altro">Altro</option>
-              </select>
+              <select
+  value={form.categoria}
+  onChange={e => setForm({ ...form, categoria: e.target.value })}
+  className="px-3 py-2 rounded-xl bg-white/10 border border-white/20 text-white"
+>
+  <option value="carne">Carne</option>
+  <option value="pesce">Pesce</option>
+  <option value="verdure">Verdure</option>
+  <option value="frutta">Frutta</option>
+  <option value="pane">Pane</option>
+  <option value="pronti">Pronti</option>
+  <option value="altro">Altro</option>
+</select>
+
             </div>
 
             <div className="flex gap-2">
